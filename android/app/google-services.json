@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1041594663700",
+    "project_id": "wecare-ca37b",
+    "storage_bucket": "wecare-ca37b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041594663700:android:84175595ae240bc9d77801",
+        "android_client_info": {
+          "package_name": "com.archieadmin.educareadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1041594663700-a4btjbp9uh5hud9hbb2rhp9mghaaljf5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9OyGUsP0_oMNIbQ0G8edwmW9jDus8qLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1041594663700-a4btjbp9uh5hud9hbb2rhp9mghaaljf5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
