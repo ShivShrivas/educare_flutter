@@ -1758,4 +1758,80 @@ class _ApiService implements ApiService {
     }
     return requestOptions;
   }
+
+  @override
+  Future<List<ClassDataList>> getClassListEmployeeWise(action, relationshipId, sessionId, code, fYId)  async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'Action': action,
+      'RelationshipId': relationshipId,
+      'SessionId': sessionId,
+      'CreatedBy': code,
+      'FYId': fYId
+    };
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<ClassDataList>>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'AssessmentApi/GetDefineChapterResourceMasterDetails',
+                queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => ClassDataList.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+
+
+  @override
+  Future<List<AcademicSessionDataList>> getAcademicSessionList(action, relationshipId, sessionId, code, fYId)  async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'Action': action,
+      'RelationshipId': relationshipId,
+      'SessionId': sessionId,
+      'CreatedBy': code,
+      'FYId': fYId
+    };
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<AcademicSessionDataList>>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'GetMasterApi/GetSessionMonths',
+                queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => AcademicSessionDataList.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+
+  @override
+  Future<List<SubjectDataList>> getSubjectListClassWise(action, relationshipId, sessionId, code, fYId,classCode)  async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'Action': action,
+      'RelationshipId': relationshipId,
+      'SessionId': sessionId,
+      'CreatedBy': code,
+      'FYId': fYId,
+      'ClassCode':classCode
+    };
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<SubjectDataList>>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'AssessmentApi/GetDefineChapterResourceMasterDetails',
+                queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => SubjectDataList.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
 }

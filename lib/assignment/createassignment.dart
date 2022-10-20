@@ -310,8 +310,7 @@ class CreateAssignmentState extends State<CreateAssignment> {
   }
   /////////////////file explorer //////////
   void _openFileExplorer() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(type: _pickingType,allowMultiple: _multiPick,allowedExtensions: (_extension.isNotEmpty ? false)
-        ?_extension.replaceAll(' ', '').split(',')
+    FilePickerResult? result = await FilePicker.platform.pickFiles(type: _pickingType,allowMultiple: _multiPick,allowedExtensions: (_extension.isNotEmpty ? false) ?_extension.replaceAll(' ', '').split(',')
         : null);
 
     if(result != null) {
@@ -353,6 +352,7 @@ class CreateAssignmentState extends State<CreateAssignment> {
         .then((result) {
       if(result.isNotEmpty){
         setState(() {
+          print("result $result");
           classlist=result;
          // selectedClassCode = result[0];
          // _classCode = result[0].classCode.toString();

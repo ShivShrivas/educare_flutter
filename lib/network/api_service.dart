@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:educareadmin/models/AcademicSession.dart';
+import 'package:educareadmin/models/SubjectList.dart';
 import 'package:educareadmin/models/alldatateacher.dart';
 import 'package:educareadmin/models/attendancedata.dart';
 import 'package:educareadmin/models/calendardata.dart';
@@ -725,6 +727,32 @@ abstract class ApiService {
       @Field("RelationshipId") relationshipId,
       @Field("SessionId") sessionId,
       );
+
+
+  @POST("AssessmentApi/GetDefineChapterResourceMasterDetails")
+  Future<List<ClassDataList>> getClassListEmployeeWise(
+      @Field("Action") action,@Field("RelationshipId") relationshipId,@Field("SessionId") sessionId,@Field("CreatedBy") code,@Field("FYId") fYId
+  );
+
+
+
+  @POST("GetMasterApi/GetSessionMonths")
+  Future<List<AcademicSessionDataList>> getAcademicSessionList(
+      @Field("Action") action,@Field("RelationshipId") relationshipId,@Field("SessionId") sessionId,@Field("CreatedBy") code,@Field("FYId") fYId
+  );
+
+
+
+
+  @POST("AssessmentApi/GetDefineChapterResourceMasterDetails")
+  Future<List<SubjectDataList>> getSubjectListClassWise(
+      @Field("Action") action,@Field("RelationshipId") relationshipId,@Field("SessionId") sessionId,@Field("CreatedBy") code,@Field("FYId") fYId,@Field("ClassCode") classCode
+  );
+
+
+
+
+
 
 
 /*@POST("/post")

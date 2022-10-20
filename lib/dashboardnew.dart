@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:badges/badges.dart';
 import 'package:educareadmin/conts/colors.dart';
 import 'package:educareadmin/conts/common.dart';
+import 'package:educareadmin/lessonplan/chapterResAndLessonPlan.dart';
 import 'package:educareadmin/login.dart';
 import 'package:educareadmin/models/noticedata.dart';
 import 'package:educareadmin/network/api_service.dart';
@@ -2557,35 +2558,41 @@ class Pages2State extends State<Pages2> {
                                   ),
                                 ),
                                 Expanded(
-                                  child:Visibility(
-                                    visible: false,
-                                    child: Container(
-                                        child: Card(
-                                            clipBehavior: Clip.antiAlias,
-                                            semanticContainer: true,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(5.0),
-                                            ),
-                                            elevation: 5,
-                                            margin: EdgeInsets.all(10),
-                                            child: Padding(
-                                                padding: new EdgeInsets.all(15.0),
-                                                child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    children: <Widget>[
-                                                      SizedBox(
-                                                        height: 40.0,
-                                                        child: Image.asset( "assets/verified.png",
-                                                          fit: BoxFit.contain,
+                                  child:GestureDetector(
+                                    onTap: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChapterResAndLessonPlan()));
+
+                                    },
+                                    child: Visibility(
+                                      visible: true,
+                                      child: Container(
+                                          child: Card(
+                                              clipBehavior: Clip.antiAlias,
+                                              semanticContainer: true,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(5.0),
+                                              ),
+                                              elevation: 5,
+                                              margin: EdgeInsets.all(10),
+                                              child: Padding(
+                                                  padding: new EdgeInsets.all(15.0),
+                                                  child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      children: <Widget>[
+                                                        SizedBox(
+                                                          height: 40.0,
+                                                          child: Image.asset( "assets/verified.png",
+                                                            fit: BoxFit.contain,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                                      Text("Circular",
-                                                          style: new TextStyle(color: colors.pink,fontSize: 12.0,fontFamily: 'Montserrat',
-                                                              fontWeight: FontWeight.w700)),
-                                                    ])
-                                            )
-                                        )
+                                                        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                                        Text("Circular",
+                                                            style: new TextStyle(color: colors.pink,fontSize: 12.0,fontFamily: 'Montserrat',
+                                                                fontWeight: FontWeight.w700)),
+                                                      ])
+                                              )
+                                          )
+                                      ),
                                     ),
                                   ),
                                 )
