@@ -398,11 +398,12 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                 ),
               ),
               Container(
+
                 child: Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height * 0.15),
                     Container(
-                      color: colors.greylight3,
+                      color: colors.transparentmy,
                       child: Row(
                         children: [
                           Expanded(
@@ -427,7 +428,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                 margin: const EdgeInsets.all(5.0),
                                 padding: const EdgeInsets.all(5.0),
                                 decoration: BoxDecoration(
-                                    color: colors.greylight,
+                                    color: colors.greylight3,
                                     borderRadius: BorderRadius.circular(5.0),
                                     border: Border.all(color: Colors.grey)),
                                 child: DropdownButton<AcademicSessionDataList>(
@@ -495,7 +496,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                   margin: const EdgeInsets.all(5.0),
                                   padding: const EdgeInsets.all(5.0),
                                   decoration: BoxDecoration(
-                                      color: colors.greylight,
+                                      color: colors.greylight3,
                                       borderRadius: BorderRadius.circular(5.0),
                                       border: Border.all(color: Colors.grey)),
                                   child: DropdownButton<ClassDataList>(
@@ -544,7 +545,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                       ),
                     ),
                     Container(
-                      color: colors.greylight3,
+                      color: colors.transparentmy,
                       child: Row(
                         children: [
                           Expanded(
@@ -569,7 +570,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                 margin: const EdgeInsets.all(5.0),
                                 padding: const EdgeInsets.all(5.0),
                                 decoration: BoxDecoration(
-                                    color: colors.greylight,
+                                    color: colors.greylight3,
                                     borderRadius: BorderRadius.circular(5.0),
                                     border: Border.all(color: Colors.grey)),
                                 child: DropdownButton<SubjectDataList>(
@@ -634,7 +635,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                   margin: const EdgeInsets.all(5.0),
                                   padding: const EdgeInsets.all(5.0),
                                   decoration: BoxDecoration(
-                                      color: colors.greylight,
+                                      color: colors.greylight3,
                                       borderRadius: BorderRadius.circular(5.0),
                                       border: Border.all(color: Colors.grey)),
                                   child: DropdownButton<BookList>(
@@ -679,7 +680,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                       ),
                     ),
                     Container(
-                      color: colors.greylight3,
+                      color: colors.transparentmy,
                       child: Row(
                         children: [
                           Expanded(
@@ -704,7 +705,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                 margin: const EdgeInsets.all(5.0),
                                 padding: const EdgeInsets.all(5.0),
                                 decoration: BoxDecoration(
-                                    color: colors.greylight,
+                                    color: colors.greylight3,
                                     borderRadius: BorderRadius.circular(5.0),
                                     border: Border.all(color: Colors.grey)),
                                 child: DropdownButton<ChapterListBookWise>(
@@ -768,7 +769,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                   margin: const EdgeInsets.all(5.0),
                                   padding: const EdgeInsets.all(5.0),
                                   decoration: BoxDecoration(
-                                      color: colors.greylight,
+                                      color: colors.greylight3,
                                       borderRadius: BorderRadius.circular(5.0),
                                       border: Border.all(color: Colors.grey)),
                                   child: DropdownButton<String>(
@@ -868,7 +869,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                     size: 18,
                   )),
               trailing: Icon(Icons.arrow_right),
-              title: Text(lessonPlanTypeList[index].ChapterName),
+              title: Text(lessonPlanTypeList[index].ChapterName,style: TextStyle(color: Colors.red,fontWeight:FontWeight.bold)),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => LessonPlanInnerListPage()));
 
@@ -883,7 +884,9 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
         itemCount: resourceTypeList.length,
         itemBuilder: (context, index) {
           return Card(
-            elevation: 3,
+            margin: EdgeInsets.all(8),
+            elevation: 4,
+          shadowColor: Colors.grey,
             child: ListTile(
               leading: Container(
                   height: double.infinity,
@@ -892,7 +895,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                     size: 18,
                   )),
               trailing: Icon(Icons.arrow_right),
-              title: Text(resourceTypeList[index].FileName),
+              title: Text(resourceTypeList[index].FileName,style: TextStyle(color: Colors.red,fontWeight:FontWeight.bold),),
               subtitle: Text(resourceTypeList[index].ResourceCategoryName),
               onTap: () {
                 // _launchInBrowser(resourceTypeList[index].FilePath.toString());

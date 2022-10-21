@@ -42,6 +42,7 @@ class AppColors{
   final greennotcomplete= const Color(0xf8effcef);
   final rednotcomplete= const Color(0xf8fce7e9);
   final listorange= const Color(0xf8fcf0e7);
+  final transparentgrey= const Color(0x7efff2f2);
 
 
   ///////////////////////// Image View URL //////////////////// Apspnk -57407 ---http://103.158.182.123:90   allenp.superhouseerp.com -- testing.superhouseerp.com ---  //88215    /// http://13.232.241.145  ...///allenp.superhouseerp.com
