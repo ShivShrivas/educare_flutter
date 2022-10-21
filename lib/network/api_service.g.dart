@@ -1834,4 +1834,115 @@ class _ApiService implements ApiService {
         .toList();
     return value;
   }
+
+  @override
+  Future<List<BookList>> getBookListClassWise(action, relationshipId, sessionId, code, fYId,classCode,subjectCode)  async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'Action': action,
+      'RelationshipId': relationshipId,
+      'SessionId': sessionId,
+      'CreatedBy': code,
+      'FYId': fYId,
+      'ClassCode':classCode,
+      'SubjectCode': subjectCode
+    };
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<BookList>>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'AssessmentApi/GetDefineChapterResourceMasterDetails',
+                queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => BookList.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<List<ChapterListBookWise>> getChapterListBookWise(action, sessionId, fYId,bookCode)  async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'Action': action,
+      'SessionId': sessionId,
+      'FYId': fYId,
+      'BookCode':bookCode
+
+    };
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<ChapterListBookWise>>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'AssessmentApi/GetDefineChapterResourceMasterDetails',
+                queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => ChapterListBookWise.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+
+
+  @override
+  Future<List<ResourcesTypeViewList>> getResourceTypeView(action, classCode,subjectCode,sessionId, fYId,bookCode,chapterCode,typeCode)  async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'Action': action,
+      'ClassCode':classCode,
+      'SubjectCode':subjectCode,
+      'SessionId': sessionId,
+      'FYId': fYId,
+      'BookCode':bookCode,
+      'ChapterCode':chapterCode,
+      'TypeCode':typeCode,
+    };
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<ResourcesTypeViewList>>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'AssessmentApi/GetChapterResourceAndLessonPlanView',
+                queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => ResourcesTypeViewList.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+
+
+  @override
+  Future<List<LessonPlanList>> getLessonPlanView(action, classCode,subjectCode,sessionId, fYId,bookCode,chapterCode,typeCode)  async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'Action': action,
+      'ClassCode':classCode,
+      'SubjectCode':subjectCode,
+      'SessionId': sessionId,
+      'FYId': fYId,
+      'BookCode':bookCode,
+      'ChapterCode':chapterCode,
+      'TypeCode':typeCode,
+    };
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<LessonPlanList>>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'AssessmentApi/GetChapterResourceAndLessonPlanView',
+                queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => LessonPlanList.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+
+
 }

@@ -1,5 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:educareadmin/models/AcademicSession.dart';
+import 'package:educareadmin/models/BookDataList.dart';
+import 'package:educareadmin/models/ChapterListBookWise.dart';
+import 'package:educareadmin/models/LessonPlan.dart';
+import 'package:educareadmin/models/ResourcesTypeView.dart';
 import 'package:educareadmin/models/SubjectList.dart';
 import 'package:educareadmin/models/alldatateacher.dart';
 import 'package:educareadmin/models/attendancedata.dart';
@@ -748,6 +752,46 @@ abstract class ApiService {
   Future<List<SubjectDataList>> getSubjectListClassWise(
       @Field("Action") action,@Field("RelationshipId") relationshipId,@Field("SessionId") sessionId,@Field("CreatedBy") code,@Field("FYId") fYId,@Field("ClassCode") classCode
   );
+
+
+
+  @POST("AssessmentApi/GetDefineChapterResourceMasterDetails")
+  Future<List<BookList>> getBookListClassWise(
+      @Field("Action") action,@Field("RelationshipId") relationshipId,@Field("SessionId") sessionId,@Field("CreatedBy") code,@Field("FYId") fYId,@Field("ClassCode") classCode,@Field("SubjectCode") subjectCode
+  );
+
+
+
+  @POST("AssessmentApi/GetDefineChapterResourceMasterDetails")
+  Future<List<ChapterListBookWise>> getChapterListBookWise(
+      @Field("Action") action,@Field("SessionId") sessionId,@Field("FYId") fYId,@Field("BookCode") bookCode
+  );
+
+
+
+
+
+  @POST("AssessmentApi/GetChapterResourceAndLessonPlanView")
+  Future<List<ResourcesTypeViewList>> getResourceTypeView(
+      @Field("Action") action,@Field("ClassCode") classCode,@Field("SubjectCode") subjectCode,@Field("SessionId") sessionId,@Field("FYId") fYId,@Field("BookCode") bookCode,@Field("ChapterCode") chapterCode,@Field("TypeCode") typeCode
+  );
+
+
+
+
+  @POST("AssessmentApi/GetChapterResourceAndLessonPlanView")
+  Future<List<LessonPlanList>> getLessonPlanView(
+      @Field("Action") action,@Field("ClassCode") classCode,@Field("SubjectCode") subjectCode,@Field("SessionId") sessionId,@Field("FYId") fYId,@Field("BookCode") bookCode,@Field("ChapterCode") chapterCode,@Field("TypeCode") typeCode
+  );
+
+
+
+
+  //
+  // @POST("AssessmentApi/GetChapterResourceAndLessonPlanView")
+  // Future<List<ResourcesTypeViewList>> getLessonPlan(
+  //     @Field("Action") action,@Field("SessionId") sessionId,@Field("FYId") fYId,@Field("Code") chapterCode,@Field("TypeCode") typeCode
+  // );
 
 
 

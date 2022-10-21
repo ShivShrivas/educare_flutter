@@ -1,18 +1,29 @@
 import 'package:educareadmin/conts/colors.dart';
 import 'package:educareadmin/conts/common.dart';
+import 'package:educareadmin/main.dart';
 import 'package:educareadmin/models/AcademicSession.dart';
 import 'package:educareadmin/models/AcademicSession.dart';
 import 'package:educareadmin/models/AcademicSession.dart';
+import 'package:educareadmin/models/BookDataList.dart';
+import 'package:educareadmin/models/ChapterListBookWise.dart';
+import 'package:educareadmin/models/LessonPlan.dart';
+import 'package:educareadmin/models/ResourcesTypeView.dart';
 import 'package:educareadmin/models/SubjectList.dart';
 import 'package:educareadmin/models/classdata.dart';
 import 'package:educareadmin/models/subjectdata.dart';
 import 'package:educareadmin/network/api_service.dart';
 import 'package:educareadmin/storedata/sfdata.dart';
+import 'package:educareadmin/syllabus/chapterlist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'openfileinwebview.dart';
 
 class ChapterResAndLessonPlan extends StatefulWidget {
   const ChapterResAndLessonPlan({Key? key}) : super(key: key);
@@ -27,13 +38,14 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
   var sessionId;
   var relationshipId;
   var classCode;
+  var listTitle = "";
   final RefreshController _refreshController = RefreshController();
   var empCode, fyID, saveuseId;
   CommonAction commonAlert = CommonAction();
 
   List<ClassDataList> classlist = <ClassDataList>[];
   ClassDataList? selectedClassCode;
-  String _classCode = "0";
+  String _classCode="0";
 
   List<AcademicSessionDataList> academicSessionList =
       <AcademicSessionDataList>[];
@@ -43,6 +55,161 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
   List<SubjectDataList> subjectList = <SubjectDataList>[];
   SubjectDataList? selectSubjectCode = null;
   String _subjectCode = "0";
+
+  List<BookList> bookList = <BookList>[];
+  BookList? selectBookCode = null;
+  String _bookCode = "0";
+
+  List<ChapterListBookWise> chapterList = <ChapterListBookWise>[];
+  ChapterListBookWise? selectChapterCode = null;
+  String _chapterCode = "0";
+
+  List<String> listOfViewType = <String>["Resource", "Lesson Plan"];
+
+  List<ResourcesTypeViewList> resourceTypeList = <ResourcesTypeViewList>[];
+  ResourcesTypeViewList? selectResourceCode = null;
+  String _resouceCode = "0";
+
+
+  List<LessonPlanList> lessonPlanList = <LessonPlanList>[];
+  LessonPlanList? selectLessonPlanCode = null;
+  String _LessonPlanCode = "0";
+
+
+
+  /////////Get Reaource////////////////////////////////
+  Future<Null> getLessonPlan() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var relationshipid = preferences.getInt("RelationshipId") ?? 0;
+    var sessionid = preferences.getInt("ActiveAcademicYearId") ?? 0;
+
+    final api = Provider.of<ApiService>(context, listen: false);
+    return await api
+        .getLessonPlanView("2", "20000009", "20000003", "2", "2", "20000198",
+            "20000059-5417", "2")
+        .then((result) {
+      if (result.isNotEmpty) {
+        setState(() {
+          if (result[0].ChapterName != null) {
+            lessonPlanList = result;
+
+            // _subjectCode = result[0].code.toString();
+            //print("OutputrelationshipId2 "+ classlist[0].className);
+          } else {
+            _LessonPlanCode= "0";
+            this.lessonPlanList = [];
+          }
+          //  getStudentList();
+        });
+      } else {
+        setState(() {
+          _LessonPlanCode = "0";
+          this.lessonPlanList = [];
+        });
+      }
+    });
+  }
+
+
+  /////////Get Reaource////////////////////////////////
+  Future<Null> getResources() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var relationshipid = preferences.getInt("RelationshipId") ?? 0;
+    var sessionid = preferences.getInt("ActiveAcademicYearId") ?? 0;
+
+    final api = Provider.of<ApiService>(context, listen: false);
+    return await api
+        .getResourceTypeView("1", "20000009", "20000003", "2", "2", "20000198",
+            "20000059-5417", "1")
+        .then((result) {
+      if (result.isNotEmpty) {
+        setState(() {
+          if (result[0].FileName != null) {
+            resourceTypeList = result;
+
+            // _subjectCode = result[0].code.toString();
+            //print("OutputrelationshipId2 "+ classlist[0].className);
+          } else {
+            _resouceCode = "0";
+            this.resourceTypeList = [];
+          }
+          //  getStudentList();
+        });
+      } else {
+        setState(() {
+          _resouceCode = "0";
+          this.resourceTypeList = [];
+        });
+      }
+    });
+  }
+
+  //////////////////  Chapter API //////////////////////
+  Future<Null> getChapterList() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var relationshipid = preferences.getInt("RelationshipId") ?? 0;
+    var sessionid = preferences.getInt("ActiveAcademicYearId") ?? 0;
+    final api = Provider.of<ApiService>(context, listen: false);
+    return await api
+        .getChapterListBookWise("3", sessionid, fyID, _bookCode)
+        .then((result) {
+      if (result.isNotEmpty) {
+        setState(() {
+          if (result[0].ChapterName != null) {
+            chapterList = result;
+
+            // _subjectCode = result[0].code.toString();
+            //print("OutputrelationshipId2 "+ classlist[0].className);
+          } else {
+            _chapterCode = "0";
+            this.chapterList = [];
+          }
+          //  getStudentList();
+        });
+      } else {
+        setState(() {
+          _chapterCode = "0";
+          this.chapterList = [];
+        });
+      }
+    }).catchError((error) {
+      print(error);
+    });
+  }
+
+  //////////////////  Book API //////////////////////
+  Future<Null> getBookList() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var relationshipid = preferences.getInt("RelationshipId") ?? 0;
+    var sessionid = preferences.getInt("ActiveAcademicYearId") ?? 0;
+    final api = Provider.of<ApiService>(context, listen: false);
+    return await api
+        .getBookListClassWise("2", relationshipid, sessionid, saveuseId, fyID,
+            "20000004", "20000006")
+        .then((result) {
+      if (result.isNotEmpty) {
+        setState(() {
+          if (result[0].bookName != null) {
+            bookList = result;
+
+            // _subjectCode = result[0].code.toString();
+            //print("OutputrelationshipId2 "+ classlist[0].className);
+          } else {
+            _bookCode = "0";
+            this.bookList = [];
+          }
+          //  getStudentList();
+        });
+      } else {
+        setState(() {
+          _bookCode = "0";
+          this.bookList = [];
+        });
+      }
+    }).catchError((error) {
+      print(error);
+    });
+  }
 
   //////////////////  Subject API //////////////////////
   Future<Null> getSubjectList() async {
@@ -105,7 +272,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
 
   //////////////////  Class API //////////////////////
   Future<Null> classList() async {
-    classlist=<ClassDataList>[];
+    classlist = <ClassDataList>[];
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var relationshipid = preferences.getInt("RelationshipId") ?? 0;
     var sessionid = preferences.getInt("ActiveAcademicYearId") ?? 0;
@@ -346,15 +513,13 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                         color: Colors.black, fontSize: 18),
                                     underline: SizedBox(),
                                     onChanged: (ClassDataList? data) {
-
-                                        setState(() {
-                                          selectedClassCode = data!;
-                                          _classCode = selectedClassCode!.classCode;
-                                          subjectList.clear();
-                                          getSubjectList();
-                                        });
-
-
+                                      setState(() {
+                                        selectedClassCode = data!;
+                                        _classCode =
+                                            selectedClassCode!.classCode;
+                                        subjectList.clear();
+                                        getSubjectList();
+                                      });
                                     },
                                     items: this
                                         .classlist
@@ -426,6 +591,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                       selectSubjectCode = data!;
                                       _subjectCode =
                                           selectSubjectCode!.subjectCode;
+                                      getBookList();
                                     });
                                   },
                                   items: this
@@ -476,27 +642,25 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                       color: colors.greylight,
                                       borderRadius: BorderRadius.circular(5.0),
                                       border: Border.all(color: Colors.grey)),
-                                  child: DropdownButton<SubjectDataList>(
+                                  child: DropdownButton<BookList>(
                                     isExpanded: true,
-                                    value: selectSubjectCode,
+                                    value: selectBookCode,
                                     icon: Icon(Icons.arrow_drop_down),
                                     iconSize: 24,
                                     elevation: 16,
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 18),
                                     underline: SizedBox(),
-                                    onChanged: (SubjectDataList? data) {
+                                    onChanged: (BookList? data) {
                                       setState(() {
-                                        selectSubjectCode = data!;
-                                        _subjectCode =
-                                            selectSubjectCode!.subjectCode;
+                                        selectBookCode = data!;
+                                        _bookCode = selectBookCode!.bookCode;
+                                        getChapterList();
                                       });
                                     },
-                                    items: this
-                                        .subjectList
-                                        .map((SubjectDataList data) {
-                                      return DropdownMenuItem<SubjectDataList>(
-                                        child: Text("  " + data.subjectName,
+                                    items: this.bookList.map((BookList data) {
+                                      return DropdownMenuItem<BookList>(
+                                        child: Text("  " + data.bookName,
                                             style: new TextStyle(
                                                 fontSize: 12.0,
                                                 fontFamily: 'Montserrat',
@@ -505,7 +669,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                       );
                                     }).toList(),
                                     hint: Text(
-                                      "Select Subject",
+                                      "Select Book",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 11,
@@ -548,6 +712,42 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                     color: colors.greylight,
                                     borderRadius: BorderRadius.circular(5.0),
                                     border: Border.all(color: Colors.grey)),
+                                child: DropdownButton<ChapterListBookWise>(
+                                  isExpanded: true,
+                                  value: selectChapterCode,
+                                  icon: Icon(Icons.arrow_drop_down),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 18),
+                                  underline: SizedBox(),
+                                  onChanged: (ChapterListBookWise? data) {
+                                    setState(() {
+                                      selectChapterCode = data!;
+                                      _chapterCode = selectChapterCode!.Code;
+                                    });
+                                  },
+                                  items: this
+                                      .chapterList
+                                      .map((ChapterListBookWise data) {
+                                    return DropdownMenuItem<
+                                        ChapterListBookWise>(
+                                      child: Text("  " + data.ChapterName,
+                                          style: new TextStyle(
+                                              fontSize: 12.0,
+                                              fontFamily: 'Montserrat',
+                                              fontWeight: FontWeight.w700)),
+                                      value: data,
+                                    );
+                                  }).toList(),
+                                  hint: Text(
+                                    "Select Chapter",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
                               )
                             ],
                           )),
@@ -576,11 +776,77 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                       color: colors.greylight,
                                       borderRadius: BorderRadius.circular(5.0),
                                       border: Border.all(color: Colors.grey)),
+                                  child: DropdownButton<String>(
+                                    isExpanded: true,
+                                    icon: Icon(Icons.arrow_drop_down),
+                                    iconSize: 24,
+                                    elevation: 16,
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 18),
+                                    underline: SizedBox(),
+                                    onChanged: (data) {
+                                      if(_classCode=="0" || _academicSessionListCode=="0" ||_subjectCode=="0" || _bookCode=="0"|| _chapterCode=="0"){
+                                        commonAlert.showAlertDialog(context, "Alert", "Please Select All Privious Fields", "Ok");
+
+
+                                      }else{
+                                        if (data == "Resource") {
+                                          setState(() {
+                                            lessonPlanList.clear();
+                                            getResources();
+                                            listTitle = "Resources List";
+                                          });
+                                        } else {
+                                          setState(() {
+
+                                            resourceTypeList.clear();
+                                            listTitle = "Lesson Plan List";
+                                            getLessonPlan();
+                                          });
+                                        }
+                                      }
+
+                                    },
+                                    items: <String>['Resource', 'Lesson Plan']
+                                        .map((String data) {
+                                      return DropdownMenuItem<String>(
+                                        child: Text(data,
+                                            style: new TextStyle(
+                                                fontSize: 12.0,
+                                                fontFamily: 'Montserrat',
+                                                fontWeight: FontWeight.w700)),
+                                        value: data,
+                                      );
+                                    }).toList(),
+                                    hint: Text(
+                                      "Select View Type",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
                                 )
                               ],
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text("$listTitle",
+                        textAlign: TextAlign.center,
+                        style: new TextStyle(
+                            color: Colors.black,
+                            fontSize: 16.0,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w700)),
+                    Expanded(
+                      child: Container(
+                        height: double.maxFinite,
+                        child: _lessonAndPlanList(lessonPlanList,resourceTypeList),
                       ),
                     ),
                   ],
@@ -591,5 +857,89 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
         ),
       ),
     );
+  }
+  _lessonAndPlanList(List<LessonPlanList> lessonPlanTypeList,List<ResourcesTypeViewList> resourceTypeList) {
+    if(resourceTypeList.isEmpty){
+      return ListView.builder(
+        itemCount: lessonPlanTypeList.length,
+        itemBuilder: (context, index) {
+          return Card(
+            elevation: 3,
+            child: ListTile(
+              leading: Container(
+                  height: double.infinity,
+                  child: Icon(
+                    Icons.cloud_circle_rounded,
+                    size: 18,
+                  )),
+              trailing: Icon(Icons.arrow_right),
+              title: Text(lessonPlanTypeList[index].ChapterName),
+              onTap: () {
+
+
+              },
+            ),
+          );
+        },
+      );
+    }else{
+      return ListView.builder(
+        itemCount: resourceTypeList.length,
+        itemBuilder: (context, index) {
+          return Card(
+            elevation: 3,
+            child: ListTile(
+              leading: Container(
+                  height: double.infinity,
+                  child: Icon(
+                    Icons.cloud_circle_rounded,
+                    size: 18,
+                  )),
+              trailing: Icon(Icons.arrow_right),
+              title: Text(resourceTypeList[index].FileName),
+              subtitle: Text(resourceTypeList[index].ResourceCategoryName),
+              onTap: () {
+                // _launchInBrowser(resourceTypeList[index].FilePath.toString());
+                Navigator.push(context, MaterialPageRoute(builder: (context) => OpenWebView(MyApp.colors.imageUrl+resourceTypeList[index].FilePath)));
+              },
+            ),
+          );
+        },
+      );
+    }
+
+  }
+  _resourceList(List<ResourcesTypeViewList> resourceTypeList) {
+    return ListView.builder(
+      itemCount: resourceTypeList.length,
+      itemBuilder: (context, index) {
+        return Card(
+          elevation: 3,
+          child: ListTile(
+            leading: Container(
+                height: double.infinity,
+                child: Icon(
+                  Icons.cloud_circle_rounded,
+                  size: 18,
+                )),
+            trailing: Icon(Icons.arrow_right),
+            title: Text(resourceTypeList[index].FileName),
+            subtitle: Text(resourceTypeList[index].ResourceCategoryName),
+            onTap: () {
+              _launchInBrowser(resourceTypeList[index].FilePath.toString());
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _launchInBrowser(String url) async {
+    url = MyApp.colors.imageUrl + url;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

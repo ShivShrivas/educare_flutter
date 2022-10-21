@@ -76,6 +76,7 @@ dependencies:
   horizontal_center_date_picker: ^2.0.0
   multi_select_flutter: ^4.0.0
   sqflite: ^2.0.1
+  webview_flutter: 2.6.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
