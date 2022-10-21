@@ -1945,4 +1945,31 @@ class _ApiService implements ApiService {
 
 
 
+
+  @override
+  Future<List<LessonPlanInnerDataList>> getLessonPlanInnerList(action,sessionId, fYId,code,typeCode)  async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'Action': action,
+      'SessionId': sessionId,
+      'FYId': fYId,
+      'Code':code,
+      'TypeCode':typeCode,
+    };
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<LessonPlanInnerDataList>>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'AssessmentApi/GetChapterResourceAndLessonPlanView',
+                queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => LessonPlanInnerDataList.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+
+
 }

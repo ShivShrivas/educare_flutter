@@ -1,8 +1,7 @@
 import 'package:educareadmin/conts/colors.dart';
 import 'package:educareadmin/conts/common.dart';
+import 'package:educareadmin/lessonplan/lessonplaninnerlistpage.dart';
 import 'package:educareadmin/main.dart';
-import 'package:educareadmin/models/AcademicSession.dart';
-import 'package:educareadmin/models/AcademicSession.dart';
 import 'package:educareadmin/models/AcademicSession.dart';
 import 'package:educareadmin/models/BookDataList.dart';
 import 'package:educareadmin/models/ChapterListBookWise.dart';
@@ -10,14 +9,10 @@ import 'package:educareadmin/models/LessonPlan.dart';
 import 'package:educareadmin/models/ResourcesTypeView.dart';
 import 'package:educareadmin/models/SubjectList.dart';
 import 'package:educareadmin/models/classdata.dart';
-import 'package:educareadmin/models/subjectdata.dart';
 import 'package:educareadmin/network/api_service.dart';
 import 'package:educareadmin/storedata/sfdata.dart';
-import 'package:educareadmin/syllabus/chapterlist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -875,6 +870,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
               trailing: Icon(Icons.arrow_right),
               title: Text(lessonPlanTypeList[index].ChapterName),
               onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => LessonPlanInnerListPage()));
 
 
               },

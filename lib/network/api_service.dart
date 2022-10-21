@@ -3,6 +3,7 @@ import 'package:educareadmin/models/AcademicSession.dart';
 import 'package:educareadmin/models/BookDataList.dart';
 import 'package:educareadmin/models/ChapterListBookWise.dart';
 import 'package:educareadmin/models/LessonPlan.dart';
+import 'package:educareadmin/models/LessonPlanInnerData.dart';
 import 'package:educareadmin/models/ResourcesTypeView.dart';
 import 'package:educareadmin/models/SubjectList.dart';
 import 'package:educareadmin/models/alldatateacher.dart';
@@ -782,6 +783,16 @@ abstract class ApiService {
   @POST("AssessmentApi/GetChapterResourceAndLessonPlanView")
   Future<List<LessonPlanList>> getLessonPlanView(
       @Field("Action") action,@Field("ClassCode") classCode,@Field("SubjectCode") subjectCode,@Field("SessionId") sessionId,@Field("FYId") fYId,@Field("BookCode") bookCode,@Field("ChapterCode") chapterCode,@Field("TypeCode") typeCode
+  );
+
+
+
+
+
+
+  @POST("AssessmentApi/GetChapterResourceAndLessonPlanView")
+  Future<List<LessonPlanInnerDataList>> getLessonPlanInnerList(
+      @Field("Action") action,@Field("SessionId") sessionId,@Field("FYId") fYId,@Field("Code") code,@Field("TypeCode") typeCode
   );
 
 

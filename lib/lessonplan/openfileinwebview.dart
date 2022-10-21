@@ -45,14 +45,14 @@ class OpenWebViewState extends State<OpenWebView> {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text("Educare File Viewer Page",
+        title: const Text("Educare File Viewer Page",
             textAlign: TextAlign.center,
-            style: new TextStyle(
+            style:  TextStyle(
                 color: Colors.white,
                 fontSize: 16.0,
                 fontFamily: 'Montserrat',
                 fontWeight: FontWeight.w700)),
-        leading: new IconButton(
+        leading:  IconButton(
 
             icon: Icon(Icons.arrow_back),
             color: Colors.white,
