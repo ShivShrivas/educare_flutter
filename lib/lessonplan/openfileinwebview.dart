@@ -58,6 +58,7 @@ class OpenWebViewState extends State<OpenWebView> {
             color: Colors.white,
             onPressed: () {
               Navigator.of(context).pop();
+
             }),
       ),
       body: IndexedStack(

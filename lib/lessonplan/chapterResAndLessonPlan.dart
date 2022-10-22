@@ -34,6 +34,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
   var relationshipId;
   var classCode;
   var listTitle = "";
+  var viewTypeValue = "";
   final RefreshController _refreshController = RefreshController();
   var empCode, fyID, saveuseId;
   CommonAction commonAlert = CommonAction();
@@ -60,6 +61,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
   String _chapterCode = "0";
 
   List<String> listOfViewType = <String>["Resource", "Lesson Plan"];
+  String dropdownvalue = 'Resource';
 
   List<ResourcesTypeViewList> resourceTypeList = <ResourcesTypeViewList>[];
   ResourcesTypeViewList? selectResourceCode = null;
@@ -87,7 +89,8 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
         setState(() {
           if (result[0].ChapterName != null) {
             lessonPlanList = result;
-
+            selectLessonPlanCode= result[0];
+            _LessonPlanCode= result[0].Code;
             // _subjectCode = result[0].code.toString();
             //print("OutputrelationshipId2 "+ classlist[0].className);
           } else {
@@ -121,7 +124,8 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
         setState(() {
           if (result[0].FileName != null) {
             resourceTypeList = result;
-
+            selectResourceCode= result[0];
+            _resouceCode = result[0].ResourceCategoryCode;
             // _subjectCode = result[0].code.toString();
             //print("OutputrelationshipId2 "+ classlist[0].className);
           } else {
@@ -152,7 +156,8 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
         setState(() {
           if (result[0].ChapterName != null) {
             chapterList = result;
-
+            selectChapterCode= result[0];
+            _chapterCode = result[0].Code;
             // _subjectCode = result[0].code.toString();
             //print("OutputrelationshipId2 "+ classlist[0].className);
           } else {
@@ -186,7 +191,8 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
         setState(() {
           if (result[0].bookName != null) {
             bookList = result;
-
+            selectBookCode= result[0];
+            _bookCode = result[0].bookCode;
             // _subjectCode = result[0].code.toString();
             //print("OutputrelationshipId2 "+ classlist[0].className);
           } else {
@@ -220,7 +226,8 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
         setState(() {
           if (result[0].subjectCode != null) {
             subjectList = result;
-
+            selectSubjectCode= result[0];
+            _subjectCode = result[0].subjectCode;
             // _subjectCode = result[0].code.toString();
             //print("OutputrelationshipId2 "+ classlist[0].className);
           } else {
@@ -252,6 +259,8 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
       if (result.isNotEmpty) {
         setState(() {
           academicSessionList = result;
+          selectedAcademicSessionCode= result[0];
+          _academicSessionListCode = result[0].sessionId.toString();
         });
       } else {
         this.academicSessionList = [];
@@ -281,6 +290,8 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
       if (result.isNotEmpty) {
         setState(() {
           classlist = result;
+          selectedClassCode= result[0];
+          _classCode = result[0].classCode;
         });
       } else {
         this.classlist = [];
@@ -756,7 +767,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                       padding: new EdgeInsets.all(5.0),
                                       child: Text("ViewType",
                                           textAlign: TextAlign.start,
-                                          style: new TextStyle(
+                                          style: TextStyle(
                                               color: colors.black,
                                               fontSize: 12.0,
                                               fontFamily: 'Montserrat',
@@ -764,7 +775,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                     ),
                                   ],
                                 ),
-                                new Container(
+                                 Container(
                                   height: 45.0,
                                   margin: const EdgeInsets.all(5.0),
                                   padding: const EdgeInsets.all(5.0),
@@ -773,11 +784,12 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                       borderRadius: BorderRadius.circular(5.0),
                                       border: Border.all(color: Colors.grey)),
                                   child: DropdownButton<String>(
+                                    value: dropdownvalue,
                                     isExpanded: true,
                                     icon: Icon(Icons.arrow_drop_down),
                                     iconSize: 24,
                                     elevation: 16,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.black, fontSize: 18),
                                     underline: SizedBox(),
                                     onChanged: (data) {
@@ -790,6 +802,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                           setState(() {
                                             lessonPlanList.clear();
                                             getResources();
+                                            dropdownvalue=data!;
                                             listTitle = "Resources List";
                                           });
                                         } else {
@@ -797,6 +810,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
 
                                             resourceTypeList.clear();
                                             listTitle = "Lesson Plan List";
+                                            dropdownvalue=data!;
                                             getLessonPlan();
                                           });
                                         }
@@ -814,7 +828,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                         value: data,
                                       );
                                     }).toList(),
-                                    hint: Text(
+                                    hint: const Text(
                                       "Select View Type",
                                       style: TextStyle(
                                           color: Colors.black,
@@ -829,7 +843,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text("$listTitle",
