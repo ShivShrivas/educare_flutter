@@ -377,7 +377,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
               Container(
                 height: double.infinity,
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage("assets/loginbottom.png"),
                     fit: BoxFit.fill,
@@ -390,9 +390,9 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                 left: 10.0,
                 right: 10.0,
                 child: AppBar(
-                  title: Text("Chapter Resource and Lesson Plan View",
+                  title: const Text("Chapter Resource and Lesson Plan View",
                       textAlign: TextAlign.center,
-                      style: new TextStyle(
+                      style: TextStyle(
                           color: Colors.black,
                           fontSize: 16.0,
                           fontFamily: 'Montserrat',
@@ -423,10 +423,10 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                               Row(
                                 children: [
                                   Padding(
-                                    padding: new EdgeInsets.all(5.0),
+                                    padding: const EdgeInsets.all(5.0),
                                     child: Text("Academic Session",
                                         textAlign: TextAlign.start,
-                                        style: new TextStyle(
+                                        style: TextStyle(
                                             color: colors.black,
                                             fontSize: 12.0,
                                             fontFamily: 'Montserrat',
@@ -448,7 +448,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                   icon: Icon(Icons.arrow_drop_down),
                                   iconSize: 24,
                                   elevation: 16,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.black, fontSize: 18),
                                   underline: SizedBox(),
                                   onChanged: (AcademicSessionDataList? data) {
@@ -474,7 +474,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                       value: data,
                                     );
                                   }).toList(),
-                                  hint: Text(
+                                  hint: const Text(
                                     "Select Acedamic Session",
                                     style: TextStyle(
                                         color: Colors.black,
@@ -494,7 +494,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                       padding: new EdgeInsets.all(5.0),
                                       child: Text("Class",
                                           textAlign: TextAlign.start,
-                                          style: new TextStyle(
+                                          style: TextStyle(
                                               color: colors.black,
                                               fontSize: 12.0,
                                               fontFamily: 'Montserrat',
@@ -502,7 +502,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                     ),
                                   ],
                                 ),
-                                new Container(
+                                Container(
                                   height: 45.0,
                                   margin: const EdgeInsets.all(5.0),
                                   padding: const EdgeInsets.all(5.0),
@@ -516,7 +516,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                     icon: Icon(Icons.arrow_drop_down),
                                     iconSize: 24,
                                     elevation: 16,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.black, fontSize: 18),
                                     underline: SizedBox(),
                                     onChanged: (ClassDataList? data) {
@@ -528,19 +528,18 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                         getSubjectList();
                                       });
                                     },
-                                    items: this
-                                        .classlist
+                                    items: classlist
                                         .map((ClassDataList data) {
                                       return DropdownMenuItem<ClassDataList>(
                                         child: Text("  " + data.className,
-                                            style: new TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 12.0,
                                                 fontFamily: 'Montserrat',
                                                 fontWeight: FontWeight.w700)),
                                         value: data,
                                       );
                                     }).toList(),
-                                    hint: Text(
+                                    hint: const Text(
                                       "Select Class",
                                       style: TextStyle(
                                           color: Colors.black,
@@ -565,10 +564,10 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                               Row(
                                 children: [
                                   Padding(
-                                    padding: new EdgeInsets.all(5.0),
+                                    padding: const EdgeInsets.all(5.0),
                                     child: Text("Subject",
                                         textAlign: TextAlign.start,
-                                        style: new TextStyle(
+                                        style: TextStyle(
                                             color: colors.black,
                                             fontSize: 12.0,
                                             fontFamily: 'Montserrat',
@@ -576,7 +575,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                   ),
                                 ],
                               ),
-                              new Container(
+                              Container(
                                 height: 45.0,
                                 margin: const EdgeInsets.all(5.0),
                                 padding: const EdgeInsets.all(5.0),
@@ -590,7 +589,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                   icon: Icon(Icons.arrow_drop_down),
                                   iconSize: 24,
                                   elevation: 16,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.black, fontSize: 18),
                                   underline: SizedBox(),
                                   onChanged: (SubjectDataList? data) {
@@ -601,19 +600,18 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                       getBookList();
                                     });
                                   },
-                                  items: this
-                                      .subjectList
+                                  items: subjectList
                                       .map((SubjectDataList data) {
                                     return DropdownMenuItem<SubjectDataList>(
                                       child: Text("  " + data.subjectName,
-                                          style: new TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 12.0,
                                               fontFamily: 'Montserrat',
                                               fontWeight: FontWeight.w700)),
                                       value: data,
                                     );
                                   }).toList(),
-                                  hint: Text(
+                                  hint: const Text(
                                     "Select Subject",
                                     style: TextStyle(
                                         color: Colors.black,
@@ -630,10 +628,10 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                 Row(
                                   children: [
                                     Padding(
-                                      padding: new EdgeInsets.all(5.0),
+                                      padding: const EdgeInsets.all(5.0),
                                       child: Text("Book",
                                           textAlign: TextAlign.start,
-                                          style: new TextStyle(
+                                          style: TextStyle(
                                               color: colors.black,
                                               fontSize: 12.0,
                                               fontFamily: 'Montserrat',
@@ -641,7 +639,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                     ),
                                   ],
                                 ),
-                                new Container(
+                                Container(
                                   height: 45.0,
                                   margin: const EdgeInsets.all(5.0),
                                   padding: const EdgeInsets.all(5.0),
@@ -655,7 +653,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                     icon: Icon(Icons.arrow_drop_down),
                                     iconSize: 24,
                                     elevation: 16,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.black, fontSize: 18),
                                     underline: SizedBox(),
                                     onChanged: (BookList? data) {
@@ -668,14 +666,14 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                     items: this.bookList.map((BookList data) {
                                       return DropdownMenuItem<BookList>(
                                         child: Text("  " + data.bookName,
-                                            style: new TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 12.0,
                                                 fontFamily: 'Montserrat',
                                                 fontWeight: FontWeight.w700)),
                                         value: data,
                                       );
                                     }).toList(),
-                                    hint: Text(
+                                    hint: const Text(
                                       "Select Book",
                                       style: TextStyle(
                                           color: Colors.black,
@@ -700,10 +698,10 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                               Row(
                                 children: [
                                   Padding(
-                                    padding: new EdgeInsets.all(5.0),
+                                    padding: const EdgeInsets.all(5.0),
                                     child: Text("Chapter",
                                         textAlign: TextAlign.start,
-                                        style: new TextStyle(
+                                        style: TextStyle(
                                             color: colors.black,
                                             fontSize: 12.0,
                                             fontFamily: 'Montserrat',
@@ -711,7 +709,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                   ),
                                 ],
                               ),
-                              new Container(
+                              Container(
                                 height: 45.0,
                                 margin: const EdgeInsets.all(5.0),
                                 padding: const EdgeInsets.all(5.0),
@@ -725,7 +723,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                   icon: Icon(Icons.arrow_drop_down),
                                   iconSize: 24,
                                   elevation: 16,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.black, fontSize: 18),
                                   underline: SizedBox(),
                                   onChanged: (ChapterListBookWise? data) {
@@ -734,20 +732,19 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                       _chapterCode = selectChapterCode!.Code;
                                     });
                                   },
-                                  items: this
-                                      .chapterList
+                                  items: chapterList
                                       .map((ChapterListBookWise data) {
                                     return DropdownMenuItem<
                                         ChapterListBookWise>(
                                       child: Text("  " + data.ChapterName,
-                                          style: new TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 12.0,
                                               fontFamily: 'Montserrat',
                                               fontWeight: FontWeight.w700)),
                                       value: data,
                                     );
                                   }).toList(),
-                                  hint: Text(
+                                  hint: const Text(
                                     "Select Chapter",
                                     style: TextStyle(
                                         color: Colors.black,
@@ -848,7 +845,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                     ),
                     Text("$listTitle",
                         textAlign: TextAlign.center,
-                        style: new TextStyle(
+                        style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16.0,
                             fontFamily: 'Montserrat',
@@ -904,7 +901,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
             child: ListTile(
               leading: Container(
                   height: double.infinity,
-                  child: Icon(
+                  child: const Icon(
                     Icons.cloud_circle_rounded,
                     size: 18,
                   )),
@@ -912,8 +909,8 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
               title: Text(resourceTypeList[index].FileName,style: TextStyle(color: Colors.red,fontWeight:FontWeight.bold),),
               subtitle: Text(resourceTypeList[index].ResourceCategoryName),
               onTap: () {
-                // _launchInBrowser(resourceTypeList[index].FilePath.toString());
-                Navigator.push(context, MaterialPageRoute(builder: (context) => OpenWebView(MyApp.colors.imageUrl+resourceTypeList[index].FilePath)));
+                // _launchInBrowser(resourceTyspeList[index].FilePath.toString());
+                Navigator.push(context, MaterialPageRoute(builder: (context) => OpenWebView(MyApp.colors.imageUrl+resourceTypeList[index].FilePath,resourceTypeList[index].FileName)));
               },
             ),
           );
@@ -931,7 +928,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
           child: ListTile(
             leading: Container(
                 height: double.infinity,
-                child: Icon(
+                child: const Icon(
                   Icons.cloud_circle_rounded,
                   size: 18,
                 )),

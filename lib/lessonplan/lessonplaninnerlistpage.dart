@@ -82,7 +82,7 @@ class _LessonPlanInnerListPageState extends State<LessonPlanInnerListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:  AppBar(
-        flexibleSpace: Image(
+        flexibleSpace: const Image(
           image: AssetImage('assets/backappbar.png'),
           fit: BoxFit.cover,
         ),
@@ -97,7 +97,7 @@ class _LessonPlanInnerListPageState extends State<LessonPlanInnerListPage> {
                 fontWeight: FontWeight.w700)),
         leading:  IconButton(
 
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             color: Colors.white,
             onPressed: () {
               Navigator.of(context).pop();
@@ -111,7 +111,7 @@ class _LessonPlanInnerListPageState extends State<LessonPlanInnerListPage> {
             child: ListTile(
               leading: Container(
                   height: double.infinity,
-                  child: Icon(
+                  child: const Icon(
                     Icons.cloud_circle_rounded,
                     size: 18,
                   )),

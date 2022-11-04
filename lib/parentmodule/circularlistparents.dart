@@ -154,7 +154,7 @@ class CircularsParentState extends State<CircularsParent> {
                       child: AppBar(
                         title: Text("Circular",textAlign: TextAlign.center,style: new TextStyle(color: Colors.black,fontSize: 16.0,fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w700)),
-                        leading: new IconButton(
+                        leading: IconButton(
                           // icon: Text('Back', textAlign: TextAlign.center,style: TextStyle(color: Colors.black),),
                             icon: Icon(Icons.arrow_back),
                             color: Colors.black,
@@ -165,7 +165,7 @@ class CircularsParentState extends State<CircularsParent> {
                         elevation: 0,
                       ),
                     ),
-                    new Container(
+                    Container(
                         child: Column(
                           //crossAxisAlignment: CrossAxisAlignment.stretch,
                           //mainAxisAlignment: MainAxisAlignment.start,
@@ -239,7 +239,7 @@ class CircularsParentState extends State<CircularsParent> {
                       color: colors.metirialred,
                       width: 30.0,
                       height: 155.0,
-                      child: new Center(
+                      child: Center(
                           child: RotatedBox(
                             quarterTurns: 3,
                             child: RichText(

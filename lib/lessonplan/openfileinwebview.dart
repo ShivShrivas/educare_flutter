@@ -1,11 +1,13 @@
 import 'package:educareadmin/main.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class OpenWebView extends StatefulWidget {
   String categoryTitle;
-  OpenWebView(this.categoryTitle);
+  String docTitle;
+  OpenWebView(this.categoryTitle,this.docTitle);
 
   @override
   OpenWebViewState createState() => OpenWebViewState();
@@ -31,7 +33,9 @@ class OpenWebViewState extends State<OpenWebView> {
   void initState() {
     super.initState();
     // Enable virtual display.
-    print(widget.categoryTitle);
+    if (kDebugMode) {
+      print( 'https://docs.google.com/gview?embedded=true&url=${widget.categoryTitle}');
+    }
     WebView.platform = AndroidWebView();
   }
 
@@ -39,13 +43,13 @@ class OpenWebViewState extends State<OpenWebView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        flexibleSpace: Image(
+        flexibleSpace: const Image(
           image: AssetImage('assets/backappbar.png'),
           fit: BoxFit.cover,
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text("Educare File Viewer Page",
+        title: Text("${widget.docTitle}",
             textAlign: TextAlign.center,
             style:  TextStyle(
                 color: Colors.white,
@@ -54,7 +58,7 @@ class OpenWebViewState extends State<OpenWebView> {
                 fontWeight: FontWeight.w700)),
         leading:  IconButton(
 
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             color: Colors.white,
             onPressed: () {
               Navigator.of(context).pop();
@@ -67,6 +71,8 @@ class OpenWebViewState extends State<OpenWebView> {
           WebView(
             onPageFinished: doneLoading,
             onPageStarted: startLoading,
+            backgroundColor: MyApp.colors.redthemenew,
+
             initialUrl:
                 'https://docs.google.com/gview?embedded=true&url=${widget.categoryTitle}',
             javascriptMode: JavascriptMode.unrestricted,
