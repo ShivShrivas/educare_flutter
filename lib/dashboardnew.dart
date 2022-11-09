@@ -2581,13 +2581,13 @@ class Pages2State extends State<Pages2> {
                                                       children: <Widget>[
                                                         SizedBox(
                                                           height: 40.0,
-                                                          child: Image.asset( "assets/verified.png",
+                                                          child: Image.asset( "assets/lessonplan.png",
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
                                                         SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                                        Text("Circular",
-                                                            style: new TextStyle(color: colors.pink,fontSize: 12.0,fontFamily: 'Montserrat',
+                                                        Text("Lesson Plan",
+                                                            style: new TextStyle(color: colors.skybluedark,fontSize: 12.0,fontFamily: 'Montserrat',
                                                                 fontWeight: FontWeight.w700)),
                                                       ])
                                               )

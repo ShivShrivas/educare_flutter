@@ -32,6 +32,7 @@ class OpenWebViewState extends State<OpenWebView> {
   @override
   void initState() {
     super.initState();
+
     // Enable virtual display.
     if (kDebugMode) {
       print( 'https://docs.google.com/gview?embedded=true&url=${widget.categoryTitle}');
@@ -51,7 +52,7 @@ class OpenWebViewState extends State<OpenWebView> {
         elevation: 0,
         title: Text("${widget.docTitle}",
             textAlign: TextAlign.center,
-            style:  TextStyle(
+            style:  const TextStyle(
                 color: Colors.white,
                 fontSize: 16.0,
                 fontFamily: 'Montserrat',
@@ -71,11 +72,10 @@ class OpenWebViewState extends State<OpenWebView> {
           WebView(
             onPageFinished: doneLoading,
             onPageStarted: startLoading,
-            backgroundColor: MyApp.colors.redthemenew,
-
             initialUrl:
-                'https://docs.google.com/gview?embedded=true&url=${widget.categoryTitle}',
+               _getInitialUrl(widget.categoryTitle),
             javascriptMode: JavascriptMode.unrestricted,
+
           ),
           Container(
             color: Colors.white,
@@ -87,5 +87,14 @@ class OpenWebViewState extends State<OpenWebView> {
         ],
       ),
     );
+  }
+  // 'https://docs.google.com/gview?embedded=true&url=${widget.categoryTitle}'
+  String _getInitialUrl(String categoryTitle) {
+    if(categoryTitle.endsWith(".jpeg") || categoryTitle.endsWith(".png") ||categoryTitle.endsWith(".jpg")){
+      return categoryTitle;
+    }else{
+      String baseUrl="https://docs.google.com/viewer?url=$categoryTitle";
+      return baseUrl;
+    }
   }
 }

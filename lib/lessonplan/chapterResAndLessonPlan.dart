@@ -82,8 +82,8 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
 
     final api = Provider.of<ApiService>(context, listen: false);
     return await api
-        .getLessonPlanView("2", "20000009", "20000003", "2", "2", "20000198",
-            "20000059-5417", "2")
+        .getLessonPlanView("2", _classCode, _subjectCode, sessionid, fyID, _bookCode,
+            _chapterCode, "2")
         .then((result) {
       if (result.isNotEmpty) {
         setState(() {
@@ -117,8 +117,8 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
 
     final api = Provider.of<ApiService>(context, listen: false);
     return await api
-        .getResourceTypeView("1", "20000009", "20000003", "2", "2", "20000198",
-            "20000059-5417", "1")
+        .getResourceTypeView("1", _classCode, _subjectCode, sessionid, fyID, _bookCode,
+            _chapterCode, "1")
         .then((result) {
       if (result.isNotEmpty) {
         setState(() {
@@ -185,7 +185,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
     final api = Provider.of<ApiService>(context, listen: false);
     return await api
         .getBookListClassWise("2", relationshipid, sessionid, saveuseId, fyID,
-            "20000004", "20000006")
+            _classCode, _subjectCode)
         .then((result) {
       if (result.isNotEmpty) {
         setState(() {
@@ -762,7 +762,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                                   children: [
                                     Padding(
                                       padding: new EdgeInsets.all(5.0),
-                                      child: Text("ViewType",
+                                      child: Text("View Type",
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
                                               color: colors.black,
@@ -880,9 +880,9 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                     size: 18,
                   )),
               trailing: Icon(Icons.arrow_right),
-              title: Text(lessonPlanTypeList[index].ChapterName,style: TextStyle(color: Colors.red,fontWeight:FontWeight.bold)),
+              title: Text("${lessonPlanTypeList[index].ChapterName} (Period- ${lessonPlanTypeList[index].PeriodCode})",style: TextStyle(color: Colors.red,fontWeight:FontWeight.bold)),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => LessonPlanInnerListPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => LessonPlanInnerListPage(lessonPlanTypeList[index].Code)));
 
 
               },

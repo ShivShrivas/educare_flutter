@@ -1,13 +1,16 @@
+import 'package:educareadmin/main.dart';
 import 'package:educareadmin/models/LessonPlanInnerData.dart';
 import 'package:educareadmin/network/api_service.dart';
 import 'package:educareadmin/storedata/sfdata.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LessonPlanInnerListPage extends StatefulWidget {
-  const LessonPlanInnerListPage({Key? key}) : super(key: key);
+  final String lessonPlanCode;
+  LessonPlanInnerListPage(this.lessonPlanCode);
 
   @override
   State<LessonPlanInnerListPage> createState() => _LessonPlanInnerListPageState();
@@ -30,7 +33,7 @@ class _LessonPlanInnerListPageState extends State<LessonPlanInnerListPage> {
 
     final api = Provider.of<ApiService>(context, listen: false);
     return await api
-        .getLessonPlanInnerList("3", "2", "2","AB20000001", "2")
+        .getLessonPlanInnerList("3", sessionid, fyID,widget.lessonPlanCode, "2")
         .then((result) {
       if (result.isNotEmpty) {
         setState(() {
@@ -106,22 +109,29 @@ class _LessonPlanInnerListPageState extends State<LessonPlanInnerListPage> {
       body: ListView.builder(
         itemCount: lessonPlanInnerList.length,
         itemBuilder: (context, index) {
-          return Card(
-            elevation: 3,
-            child: ListTile(
-              leading: Container(
-                  height: double.infinity,
-                  child: const Icon(
-                    Icons.cloud_circle_rounded,
-                    size: 18,
-                  )),
-              title: Text(lessonPlanInnerList[index].TextContent),
-              subtitle: Text(lessonPlanInnerList[index].ChapterName
-              ),
-              onTap: () {
-                // _launchInBrowser(resourceTypeList[index].FilePath.toString());
+          return Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Card(
+              clipBehavior: Clip.antiAlias,
+              elevation: 4,
+              child: Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    width:double.maxFinite,
+                    color: MyApp.colors.redthemenew,
+                    child: Text(lessonPlanInnerList[index].CategoryName
+                    ,style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold,color: MyApp.colors.white),),),
+                  ListTile(
+                    subtitle: Html( data: lessonPlanInnerList[index].TextContent ,),
+                    onTap: () {
+                      // _launchInBrowser(resourceTypeList[index].FilePath.toString());
 
-              },
+                    },
+                  ),
+                ],
+
+              ),
             ),
           );
         },

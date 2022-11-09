@@ -37,6 +37,7 @@ class AppColors{
   final metirialred= const Color(0xf8d04c53);
   final metirialgreen= const Color(0xf838a055);
   final verylightgrey= const Color(0xf8acadad);
+  final skybluedark= const Color(0xff05a29e);
 
   final greenactive= const Color(0xf8c7fcc7);
   final greennotcomplete= const Color(0xf8effcef);
