@@ -8,6 +8,8 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'lessonPlanPdfViewerPage.dart';
+
 class LessonPlanInnerListPage extends StatefulWidget {
   final String lessonPlanCode;
   LessonPlanInnerListPage(this.lessonPlanCode);
@@ -121,11 +123,12 @@ class _LessonPlanInnerListPageState extends State<LessonPlanInnerListPage> {
                     width:double.maxFinite,
                     color: MyApp.colors.redthemenew,
                     child: Text(lessonPlanInnerList[index].CategoryName
-                    ,style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold,color: MyApp.colors.white),),),
+                    ,style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold,color: MyApp.colors.white,fontFamily: "fonts/Poppins-SemiBold"),),),
                   ListTile(
-                    subtitle: Html( data: lessonPlanInnerList[index].TextContent ,),
+                                                                                                                                           title: Text(lessonPlanInnerList[index].ChapterName ,),
                     onTap: () {
-                      // _launchInBrowser(resourceTypeList[index].FilePath.toString());
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => LessonPlanPdfViewerPage(lessonPlanInnerList[index].LessonPlanComponentPdf,lessonPlanInnerList[index].ChapterName)));
+
 
                     },
                   ),

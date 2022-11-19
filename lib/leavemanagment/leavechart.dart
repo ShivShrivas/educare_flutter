@@ -141,7 +141,7 @@ class LeaveChartState extends State<LeaveChart> {
                         child: AppBar(
                           title: Text("Leave Chart",textAlign: TextAlign.center,style: new TextStyle(color: Colors.black,fontSize: 16.0,fontFamily: 'Montserrat',
                                  fontWeight: FontWeight.w700)),
-                          leading: new IconButton(
+                          leading: IconButton(
                             // icon: Text('Back', textAlign: TextAlign.center,style: TextStyle(color: Colors.black),),
                               icon: Icon(Icons.arrow_back),
                               color: Colors.black,
@@ -152,7 +152,7 @@ class LeaveChartState extends State<LeaveChart> {
                           elevation: 0,
                         ),
                       ),
-                      new Container(
+                      Container(
                           child: Column(
                             // crossAxisAlignment: CrossAxisAlignment.stretch,
                             // mainAxisAlignment: MainAxisAlignment.start,
@@ -183,11 +183,6 @@ class LeaveChartState extends State<LeaveChart> {
                 )
             )
         )
-
-
-
-
-
 
     );
 
@@ -265,10 +260,7 @@ class LeaveChartState extends State<LeaveChart> {
                               ])
                       )
                   ),
-
-
-
-                ])
+                 ])
 
           ],
         ),

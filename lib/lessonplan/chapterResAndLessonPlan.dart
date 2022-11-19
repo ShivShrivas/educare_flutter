@@ -18,6 +18,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'lessonPlanPdfViewerPage.dart';
 import 'openfileinwebview.dart';
 
 class ChapterResAndLessonPlan extends StatefulWidget {
@@ -882,7 +883,8 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
               trailing: Icon(Icons.arrow_right),
               title: Text("${lessonPlanTypeList[index].ChapterName} (Period- ${lessonPlanTypeList[index].PeriodCode})",style: TextStyle(color: Colors.red,fontWeight:FontWeight.bold)),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => LessonPlanInnerListPage(lessonPlanTypeList[index].Code)));
+               Navigator.push(context, MaterialPageRoute(builder: (context) => LessonPlanInnerListPage(lessonPlanTypeList[index].Code)));
+               // Navigator.push(context, MaterialPageRoute(builder: (context) => LessonPlanPdfViewerPage("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf")));
 
 
               },

@@ -8,6 +8,7 @@ class LessonPlanInnerDataList {
   String CategoryName;
   String CreatedOn;
   int TypeCode;
+  String LessonPlanComponentPdf;
 
   LessonPlanInnerDataList(
       {
@@ -19,7 +20,8 @@ class LessonPlanInnerDataList {
       required this.ChapterName,
       required this.CategoryName,
       required this.CreatedOn,
-      required this.TypeCode});
+      required this.TypeCode,
+      required this.LessonPlanComponentPdf});
 
   factory LessonPlanInnerDataList.fromJson(Map<String, dynamic> json) => LessonPlanInnerDataList(
       Code: json["Code"],
@@ -30,7 +32,8 @@ class LessonPlanInnerDataList {
       ChapterName: json["ChapterName"] ,
       CategoryName: json["CategoryName"],
       CreatedOn: json["CreatedOn"],
-      TypeCode: json["TypeCode"]
+      TypeCode: json["TypeCode"],
+      LessonPlanComponentPdf: json["LessonPlanComponentPdf"]
 
   );
   Map<String, dynamic> toJson() => {
@@ -42,7 +45,8 @@ class LessonPlanInnerDataList {
     "ChapterName" :ChapterName   ,
     "CategoryName" : CategoryName,
     "CreatedOn": CreatedOn,
-    "TypeCode" :TypeCode
+    "TypeCode" :TypeCode,
+    "LessonPlanComponentPdf" :LessonPlanComponentPdf,
   };
 
 
