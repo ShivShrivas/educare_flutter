@@ -912,7 +912,13 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
               subtitle: Text(resourceTypeList[index].ResourceCategoryName),
               onTap: () {
                 // _launchInBrowser(resourceTyspeList[index].FilePath.toString());
-                Navigator.push(context, MaterialPageRoute(builder: (context) => OpenWebView(MyApp.colors.imageUrl+resourceTypeList[index].FilePath,resourceTypeList[index].FileName)));
+                if((resourceTypeList[index].FilePath).endsWith(".pdf")){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => LessonPlanPdfViewerPage(MyApp.colors.imageUrl+resourceTypeList[index].FilePath,resourceTypeList[index].FileName)));
+
+                }else{
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => OpenWebView(MyApp.colors.imageUrl+resourceTypeList[index].FilePath,resourceTypeList[index].FileName)));
+                }
+
               },
             ),
           );
