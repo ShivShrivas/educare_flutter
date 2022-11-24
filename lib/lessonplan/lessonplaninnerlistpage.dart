@@ -122,12 +122,12 @@ class _LessonPlanInnerListPageState extends State<LessonPlanInnerListPage> {
                     padding: EdgeInsets.all(5),
                     width:double.maxFinite,
                     color: MyApp.colors.redthemenew,
-                    child: Text(lessonPlanInnerList[index].CategoryName
+                    child: Text(lessonPlanInnerList[index].ChapterName
                     ,style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold,color: MyApp.colors.white,fontFamily: "fonts/Poppins-SemiBold"),),),
                   ListTile(
-                                                                                                                                           title: Text(lessonPlanInnerList[index].ChapterName ,),
+                     title: Text(lessonPlanInnerList[index].CategoryName ,),
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => LessonPlanPdfViewerPage(lessonPlanInnerList[index].LessonPlanComponentPdf,lessonPlanInnerList[index].ChapterName)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => LessonPlanPdfViewerPage(lessonPlanInnerList[index].LessonPlanComponentPdf,lessonPlanInnerList[index].CategoryName)));
 
 
                     },

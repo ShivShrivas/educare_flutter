@@ -13,6 +13,7 @@ import 'package:educareadmin/network/api_service.dart';
 import 'package:educareadmin/storedata/sfdata.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:grouped_list/grouped_list.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -368,9 +369,7 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
   Widget build(BuildContext context) {
     var colors = AppColors();
     return Scaffold(
-      body: SmartRefresher(
-        controller: _refreshController,
-        enablePullDown: true,
+      body: Container(
         child: Container(
           height: MediaQuery.of(context).size.height,
           child: Stack(
@@ -844,13 +843,18 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text("$listTitle",
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16.0,
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w700)),
+                    Container(
+                      padding: EdgeInsets.all(4),
+                      width: double.maxFinite,
+                      color: colors.greylight3,
+                      child: Text("$listTitle",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 16.0,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w700)),
+                    ),
                     Expanded(
                       child: Container(
                         height: double.maxFinite,
@@ -867,66 +871,81 @@ class _ChapterResAndLessonPlanState extends State<ChapterResAndLessonPlan> {
     );
   }
   _lessonAndPlanList(List<LessonPlanList> lessonPlanTypeList,List<ResourcesTypeViewList> resourceTypeList) {
-    if(resourceTypeList.isEmpty){
-      return ListView.builder(
-        itemCount: lessonPlanTypeList.length,
-        itemBuilder: (context, index) {
-          return Card(
-            elevation: 3,
-            child: ListTile(
-              leading: Container(
-                  height: double.infinity,
-                  child: Icon(
-                    Icons.cloud_circle_rounded,
-                    size: 18,
-                  )),
-              trailing: Icon(Icons.arrow_right),
-              title: Text("${lessonPlanTypeList[index].ChapterName} (Period- ${lessonPlanTypeList[index].PeriodCode})",style: TextStyle(color: Colors.red,fontWeight:FontWeight.bold)),
-              onTap: () {
-               Navigator.push(context, MaterialPageRoute(builder: (context) => LessonPlanInnerListPage(lessonPlanTypeList[index].Code)));
-               // Navigator.push(context, MaterialPageRoute(builder: (context) => LessonPlanPdfViewerPage("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf")));
+     if(resourceTypeList.isEmpty){
+       return ListView.builder(
+         itemCount: lessonPlanTypeList.length,
+         itemBuilder: (context, index) {
+           return Card(
+             elevation: 3,
+             child: ListTile(
+               leading: Container(
+                   height: double.infinity,
+                   child: Icon(
+                     Icons.cloud_circle_rounded,
+                     size: 18,
+                   )),
+               trailing: Icon(Icons.arrow_right),
+               title: Text("${lessonPlanTypeList[index].ChapterName} (Period- ${lessonPlanTypeList[index].PeriodCode})",style: TextStyle(color: Colors.red,fontWeight:FontWeight.bold)),
+               onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => LessonPlanInnerListPage(lessonPlanTypeList[index].Code)));
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => LessonPlanPdfViewerPage("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf")));
 
 
-              },
-            ),
-          );
-        },
-      );
-    }else{
-      return ListView.builder(
-        itemCount: resourceTypeList.length,
-        itemBuilder: (context, index) {
-          return Card(
-            margin: EdgeInsets.all(8),
-            elevation: 4,
-          shadowColor: Colors.grey,
-            child: ListTile(
-              leading: Container(
-                  height: double.infinity,
-                  child: const Icon(
-                    Icons.cloud_circle_rounded,
-                    size: 18,
-                  )),
-              trailing: Icon(Icons.arrow_right),
-              title: Text(resourceTypeList[index].FileName,style: TextStyle(color: Colors.red,fontWeight:FontWeight.bold),),
-              subtitle: Text(resourceTypeList[index].ResourceCategoryName),
-              onTap: () {
-                // _launchInBrowser(resourceTyspeList[index].FilePath.toString());
-                if((resourceTypeList[index].FilePath).endsWith(".pdf")){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => LessonPlanPdfViewerPage(MyApp.colors.imageUrl+resourceTypeList[index].FilePath,resourceTypeList[index].FileName)));
+               },
+             ),
+           );
+         },
+       );
+     }else{
 
-                }else{
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => OpenWebView(MyApp.colors.imageUrl+resourceTypeList[index].FilePath,resourceTypeList[index].FileName)));
-                }
+        return GroupedListView<ResourcesTypeViewList,String>(elements: resourceTypeList, groupBy: (element)=> element.ResourceCategoryName,
+          groupComparator: (value1, value2) => value2.compareTo(value1),
+          itemComparator: (item1, item2) =>
+              item1.FileName.compareTo(item2.FileName),
+          order: GroupedListOrder.DESC,
 
-              },
-            ),
-          );
-        },
-      );
+          groupSeparatorBuilder: (String value) => Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+                children: <Widget>[
+                  Icon(Icons.arrow_right,size: 20,color: MyApp.colors.redthemenew,),
+                  Text(
+                     " "+value,
+                    textAlign: TextAlign.left,
+                    style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
+                ]
+            )
+
+          ),
+          itemBuilder: (c, element) {
+            return Card(
+              elevation: 3.0,
+              child: SizedBox(
+                child: ListTile(
+                  leading: const Icon( Icons.attach_file,size: 18 ,),
+                  title: Text(element.FileName,style: TextStyle(color: Colors.red,fontWeight:FontWeight.bold)),
+                  trailing: const Icon(Icons.arrow_right),
+                    onTap: () {
+                      // _launchInBrowser(resourceTyspeList[index].FilePath.toString());
+                      if((element.FilePath).endsWith(".pdf")){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => LessonPlanPdfViewerPage(MyApp.colors.imageUrl+element.FilePath,element.FileName)));
+
+                      }else{
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => OpenWebView(MyApp.colors.imageUrl+element.FilePath,element.FileName)));
+                      }
+
+                    }
+                ),
+              ),
+            );
+          },
+
+
+        );
     }
 
-  }
+   }
   _resourceList(List<ResourcesTypeViewList> resourceTypeList) {
     return ListView.builder(
       itemCount: resourceTypeList.length,
